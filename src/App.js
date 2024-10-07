@@ -9,6 +9,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <input
+          type="text"
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+        />
         <Button>
           <h1>Titre de ma page</h1>
           <h2>Test</h2>
