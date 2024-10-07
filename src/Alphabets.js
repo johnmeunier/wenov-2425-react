@@ -1,4 +1,5 @@
-const Alphabets = () => {
+const Alphabets = ({ onlyVowels }) => {
+  const vowells = ["a", "e", "i", "o", "u", "y"];
   const letters = [
     "a",
     "b",
@@ -30,9 +31,11 @@ const Alphabets = () => {
 
   return (
     <ul>
-      {letters.map((letter) => (
-        <li>{letter}</li>
-      ))}
+      {letters
+        .filter((letter) => (onlyVowels ? vowells.includes(letter) : true))
+        .map((letter) => (
+          <li>{letter}</li>
+        ))}
     </ul>
   );
 };

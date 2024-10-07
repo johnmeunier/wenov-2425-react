@@ -1,4 +1,5 @@
 import Alphabets from "./Alphabets";
+import Button from "./Button";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -8,7 +9,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Alphabets />
+        <Button>
+          <h1>Titre de ma page</h1>
+          <h2>Test</h2>
+        </Button>
+        <Alphabets onlyVowels={false} />
+
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
