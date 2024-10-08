@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Signup = () => {
   const [isEmailInvalid, setIsEmailInvalid] = useState(false);
@@ -13,10 +13,21 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
+  const [isSignupDisable, setIsSignupDisable] = useState(true);
+
+  useEffect(() => {
+    setIsSignupDisable(Object.values(rulesPassword).some((isError) => !isError));
+  }, [rulesPassword]);
+
   return (
     <>
       <h2>Créer mon compte</h2>
-      <form action="">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          alert(Object.values(rulesPassword).some((isError) => !isError) ? "Compte créé" : "Erreur");
+        }}
+      >
         <label htmlFor="firstname">Prénom</label>
         <input type="text" id="firstname" />
         <label htmlFor="lastname">Nom</label>
@@ -53,6 +64,9 @@ const Signup = () => {
           <li>Uppercase :{rulesPassword.atLeastOneUpperCase ? "✅" : "❌"}</li>
           <li>Number :{rulesPassword.atLeastOneNumber ? "✅" : "❌"}</li>
         </ul>
+        <button type="submit" disabled={isSignupDisable}>
+          Créer mon compte
+        </button>
       </form>
     </>
   );
