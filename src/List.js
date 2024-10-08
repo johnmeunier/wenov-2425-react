@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import pokeball from "./pokeball.svg";
 
 import Pager from "./Pager";
 
 const List = () => {
+  const [error, setError] = useState(null);
   const [pokemons, setPokemons] = useState([]);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(10);
   const [fetchURL, setFetchURL] = useState(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
   const [links, setLinks] = useState({
     previous: null,
     next: null,
   });
-  const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("");
+
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(fetchURL);
@@ -37,16 +40,28 @@ const List = () => {
     <>
       <h2>Pokemon list</h2>
       <select value={limit} onChange={(e) => setLimit(e.target.value)}>
-        {[10, 20, 50, 100].map((limit) => (
+        {[10, 20, 50, 100, -1].map((limit) => (
           <option key={limit} value={limit}>
-            {limit}
+            {limit > 0 ? `Show ${limit} pokemons` : "Show all pokemons"}
           </option>
         ))}
       </select>
+      {limit === "-1" ? (
+        <form>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" value={filter} onChange={(e) => setFilter(() => e.target.value)} />
+        </form>
+      ) : null}
       {error ? (
         <h3>{error}</h3>
       ) : pokemons.length > 0 ? (
-        pokemons.map((pokemon) => <li key={pokemon.name}>{pokemon.name}</li>)
+        <ul style={{ listStyleImage: `url(${pokeball})` }}>
+          {pokemons
+            .filter((pokemon) => pokemon.name.includes(filter))
+            .map((pokemon) => (
+              <li key={pokemon.name}>{pokemon.name}</li>
+            ))}
+        </ul>
       ) : (
         <h3>Loading...</h3>
       )}
