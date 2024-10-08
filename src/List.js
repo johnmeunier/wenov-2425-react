@@ -4,7 +4,8 @@ import Pager from "./Pager";
 
 const List = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [fetchURL, setFetchURL] = useState("https://pokeapi.co/api/v2/pokemon");
+  const [limit, setLimit] = useState(20);
+  const [fetchURL, setFetchURL] = useState(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
   const [links, setLinks] = useState({
     previous: null,
     next: null,
@@ -24,9 +25,24 @@ const List = () => {
     fetchData();
   }, [fetchURL]);
 
+  useEffect(() => {
+    setFetchURL((currentUrl) => {
+      const url = new URL(currentUrl);
+      url.searchParams.set("limit", limit);
+      return url.toString();
+    });
+  }, [limit]);
+
   return (
     <>
       <h2>Pokemon list</h2>
+      <select value={limit} onChange={(e) => setLimit(e.target.value)}>
+        {[10, 20, 50, 100].map((limit) => (
+          <option key={limit} value={limit}>
+            {limit}
+          </option>
+        ))}
+      </select>
       {error ? (
         <h3>{error}</h3>
       ) : pokemons.length > 0 ? (
