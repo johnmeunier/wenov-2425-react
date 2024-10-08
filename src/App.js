@@ -1,12 +1,10 @@
-import Signup from "./Signup";
-
+import List from "./List";
 import "./App.css";
 
 function App() {
-  console.log(Signup);
   return (
     <div className="App">
-      <Signup />
+      <List />
     </div>
   );
 }
