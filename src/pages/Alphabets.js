@@ -34,7 +34,7 @@ const Alphabets = ({ onlyVowels }) => {
       {letters
         .filter((letter) => (onlyVowels ? vowells.includes(letter) : true))
         .map((letter) => (
-          <li>{letter}</li>
+          <li key={letter}>{letter}</li>
         ))}
     </ul>
   );

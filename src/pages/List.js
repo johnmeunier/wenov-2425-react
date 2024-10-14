@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+import Link from "../components/Link";
 import pokeball from "./pokeball.svg";
 
-import Pager from "./Pager";
+import Pager from "../Pager";
 
 const List = () => {
   const [error, setError] = useState(null);
@@ -59,7 +61,9 @@ const List = () => {
           {pokemons
             .filter((pokemon) => pokemon.name.includes(filter))
             .map((pokemon) => (
-              <li key={pokemon.name}>{pokemon.name}</li>
+              <li key={pokemon.name}>
+                <Link to={`/pokemon/${pokemon.name}`}>{pokemon.name}</Link>
+              </li>
             ))}
         </ul>
       ) : (
