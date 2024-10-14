@@ -4,7 +4,6 @@ import Pokemon from "../pages/Pokemon";
 import { useCallback } from "react";
 
 const Routes = ({ path }) => {
-  console.log(path);
   const returnComponent = useCallback((path) => {
     switch (true) {
       case /^\/$/.test(path) || /^\/\/$/.test(path):

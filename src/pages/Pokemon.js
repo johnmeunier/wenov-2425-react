@@ -16,7 +16,7 @@ const Pokemon = () => {
       }
     }
     fetchData();
-  });
+  }, []);
 
   return pokemon ? (
     <>
